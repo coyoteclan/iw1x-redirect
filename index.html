@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirect to iw1x-client</title>
+    <script>
+        function redirect() {
+            // Get the IP and port from the URL query parameters
+            const urlParams = new URLSearchParams(window.location.search);
+            const ip = urlParams.get('ip');
+            const port = urlParams.get('port');
+
+            if (ip && port) {
+                const scheme = `iw1x://${ip}:${port}`;
+                window.location.href = scheme;
+
+                // Fallback message if the custom scheme fails
+                setTimeout(() => {
+                    document.getElementById('message').innerHTML = `
+                        <p>It seems the redirect didn't work. Please click the link below:</p>
+                        <a href="${scheme}">${scheme}</a>
+                    `;
+                }, 1000); // Wait 1 second before showing the fallback message
+            } else {
+                // Show an error message if IP or port is missing
+                document.getElementById('message').innerHTML = `
+                    <p>Error: Missing IP or port in the URL. Please provide them as query parameters.</p>
+                    <p>Example: <code>?ip=192.168.1.1&port=28960</code></p>
+                `;
+            }
+        }
+
+        // Run the redirect function when the page loads
+        window.onload = redirect;
+    </script>
+</head>
+<body>
+    <h1>Redirecting...</h1>
+    <div id="message">
+        <p>If you are not redirected automatically, please wait a moment.</p>
+    </div>
+</body>
+</html>
