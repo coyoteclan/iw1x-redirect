@@ -18,10 +18,10 @@
                 // Fallback message if the custom scheme fails
                 setTimeout(() => {
                     document.getElementById('message').innerHTML = `
-                        <p>It seems the redirect didn't work. Please click the link below:</p>
+                        <p>If you didn't get redirected, please click the link below:</p>
                         <a href="${scheme}">${scheme}</a>
                     `;
-                }, 1000); // Wait 1 second before showing the fallback message
+                }, 3000); // Wait 3 second before showing the fallback message
             } else {
                 // Show an error message if IP or port is missing
                 document.getElementById('message').innerHTML = `
